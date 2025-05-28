@@ -8,19 +8,34 @@
     </head>
     <body>
         <input type="text" id="passwordSeed" placeholder="Enter your seed">
-        <p id="scrambledPasswordA"></p>
+
         <button id="scrambleA" onclick="scramble()">Scramble Password A</button>
-        <p id="scrambledPasswordB"></p>
         <button id="scrambleB">Scramble Password B</button>
 
+        <p id="scrambledPasswordA"></p>
+        <p id="scrambledPasswordB"></p>
+        <p id="scrambledPasswordEnter"></p>
         <script>
-            const ele = document.getElementById("scrambleB");
+            var ele = document.getElementById("scrambleB");
 
             ele.addEventListener('click', function(){
                 console.log("clicked scrambleB");
                 const seed = document.getElementById('passwordSeed').value;
                 const scrambled = scramblePassword(seed);
                 document.getElementById('scrambledPasswordB').textContent = scrambled;
+            });
+
+            var textBox = document.getElementById("passwordSeed");
+
+            textBox.addEventListener('keypress', function(event){
+                console.log("running");
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    console.log("pressed Enter");
+                    const seed = document.getElementById('passwordSeed').value;
+                    const scrambled = scramblePassword(seed);
+                    document.getElementById('scrambledPasswordEnter').textContent = scrambled;
+                }
             });
         </script>
     </body>
