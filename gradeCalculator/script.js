@@ -53,8 +53,15 @@ function Subject(name, average, assignments) {
 // our array of subject objects
 let subjects = [];
 
+
 function calculateGrade() 
 {
+    let objectString = '[{"name":"maths","average":0.5,"assignments":1},{"name":"art","average":0.6,"assignments":1},{"name":"science","average":0.3,"assignments":1}]'
+
+    // read the JSON string into the array of subjects!
+    subjects = JSON.parse(objectString);
+    console.log(subjects);
+
     // get the sbject name
     let name = document.getElementById("subject").value;
 
@@ -72,12 +79,10 @@ function calculateGrade()
     }
     // if the incoming subject is already in the array, update the average
     else if (subjects.map( (s) => (s.name)).includes(name)) {
-//        
-// TODO: find the subject in the array and update it by running its calculateAverage method      
-//
         console.log("Subject already exists, updating average.");
-//
-//
+        let subjectIndex = subjects.findIndex((s) => s.name === name);
+        // find the subject where the subject has a name equal to 'name'
+        subjects[subjectIndex].calculateAverage(grade);
     }
     // if the subject is not in the array, add it
     else {
@@ -88,4 +93,33 @@ function calculateGrade()
     // display the average of the first subject in subjects
     gradeElement = "<p> " + subjects[0].average + "</p>";
     document.getElementById("finalGrade").innerHTML = gradeElement;
+    
+// JSON is a VERY comon format for data exchange,
+// JavaScript Object Notation
+
+    let jsonList = JSON.stringify(subjects);
+    console.log(jsonList);
+    //
+    //  [
+    //      {
+    //          "name":"maths",
+    //          "average":0.5,
+    //          "assignments":1
+    //      },
+    //      {
+    //          "name":"art",
+    //          "average":0.6,
+    //          "assignments":1
+    //      },
+    //      {
+    //          "name":"science",
+    //          "average":0.3,
+    //          "assignments":1
+    //      }
+    //  ]
+    
+
 }
+
+
+
